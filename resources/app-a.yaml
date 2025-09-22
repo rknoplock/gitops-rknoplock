@@ -52,7 +52,7 @@ spec:
   source:
     repoURL: 'https://github.com/rknoplock/gitops-rknoplock.git'
     targetRevision: main
-    path: app-a
+    path: resources
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: app-a
@@ -60,3 +60,4 @@ spec:
     automated:
       prune: true
       selfHeal: true
+
