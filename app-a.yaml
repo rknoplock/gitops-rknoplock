@@ -1,0 +1,62 @@
+# Namespace da app-a
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: app-a
+---
+# Deployment da app-a
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-a
+  namespace: app-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-a
+  template:
+    metadata:
+      labels:
+        app: app-a
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+---
+# Service da app-a
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-a
+  namespace: app-a
+spec:
+  selector:
+    app: app-a
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort
+---
+# ArgoCD Application apontando para o repositório
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-a
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/rknoplock/gitops-rknoplock.git'
+    targetRevision: main
+    path: app-a
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: app-a
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
