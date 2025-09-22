@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: redis
+  name: redis-teste
   namespace: argocd
 spec:
   project: default
@@ -16,8 +16,9 @@ spec:
           enabled: false     # desabilita cluster para teste simples
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: redis
+    namespace: redis-teste
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+
