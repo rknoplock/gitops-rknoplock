@@ -1,24 +1,25 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: redis-teste
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: "https://charts.bitnami.com/bitnami"  # repositório Helm oficial
-    chart: redis
-    targetRevision: 22.0.0  # versão do chart, pode atualizar
-    helm:
-      values: |
-        usePassword: false   # desabilita senha para teste
-        cluster:
-          enabled: false     # desabilita cluster para teste simples
-  destination:
-    server: "https://kubernetes.default.svc"
-    namespace: redis-teste
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: redis-teste
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: "https://charts.bitnami.com/bitnami"  # repositório Helm oficial
+#     chart: redis
+#     targetRevision: 22.0.0  # versão do chart, pode atualizar
+#     helm:
+#       values: |
+#         usePassword: false   # desabilita senha para teste
+#         cluster:
+#           enabled: false     # desabilita cluster para teste simples
+#   destination:
+#     server: "https://kubernetes.default.svc"
+#     namespace: redis-teste
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+
 
