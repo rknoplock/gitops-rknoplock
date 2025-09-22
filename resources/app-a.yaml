@@ -1,3 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-a
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/rknoplock/gitops-rknoplock.git'
+    targetRevision: main
+    path: resources
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: app-a
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+---
 # Namespace da app-a
 apiVersion: v1
 kind: Namespace
@@ -40,3 +60,4 @@ spec:
       port: 80
       targetPort: 80
   type: NodePort
+
